@@ -7,14 +7,8 @@ jest.mock('./../src/dataSources/NER.js');
 const nerQuery = gql`
   query ner($content: String!) {
     ner(content: $content) {
-      ... on NullEntity {
-        isEntity
-        text
-      }
-      ... on LabeledEntity {
-        isEntity
-        text
-      }
+      isEntity
+      text
     }
   }
 `;

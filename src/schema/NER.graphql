@@ -12,27 +12,15 @@ enum engineTypes {
   RegexEngine
 }
 
-interface EntityBase {
+type Entity {
   isEntity: Boolean!
   text: String!
+  type: EntityTypes
+  startOffset: Int
+  endOffset: Int
+  confidence: Float
+  engine: engineTypes
 }
-
-type NullEntity implements EntityBase {
-  isEntity: Boolean!
-  text: String!
-}
-
-type LabeledEntity implements EntityBase {
-  isEntity: Boolean!
-  text: String!
-  type: EntityTypes!
-  startOffset: Int!
-  endOffset: Int!
-  confidence: Float!
-  engine: engineTypes!
-}
-
-union Entity = NullEntity | LabeledEntity
 
 type Query {
   ner(content: String!): [Entity!]!

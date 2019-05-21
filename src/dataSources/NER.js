@@ -1,5 +1,5 @@
 const { DataSource } = require('apollo-datasource');
-
+const labels = require('./../../fixtures/ner-labels');
 class NERApi extends DataSource {
   constructor() {
     super();
@@ -11,7 +11,8 @@ class NERApi extends DataSource {
 
   fetchEntities(content) {
     //TODO:: implement
-    throw new Error('[NERApi] - fetchEntities not implemented');
+    console.warn('delivering fake response!');
+    return labels;
   }
 }
 

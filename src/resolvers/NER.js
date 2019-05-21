@@ -12,10 +12,4 @@ module.exports = {
       return response;
     },
   },
-  Entity: {
-    __resolveType: obj => (obj.isEntity ? 'LabeledEntity' : 'NullEntity'),
-  },
-  EntityBase: {
-    __resolveType: () => null,
-  },
 };
