@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   Entity: {
-    __resolveType: () => null,
+    __resolveType: obj => (obj.isEntity ? 'LabeledEntity' : 'NullEntity'),
   },
   EntityBase: {
     __resolveType: () => null,

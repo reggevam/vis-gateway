@@ -7,13 +7,20 @@ jest.mock('./../src/dataSources/NER.js');
 const nerQuery = gql`
   query ner($content: String!) {
     ner(content: $content) {
-      isEntity
-      text
+      ... on NullEntity {
+        isEntity
+        text
+      }
+      ... on LabeledEntity {
+        isEntity
+        text
+      }
     }
   }
 `;
+
 describe('NER', () => {
-  test('ner is returning empty and labeled entities', async () => {
+  test('ner is returning empty and labeled entities, even entities are labeled and odds are not', async () => {
     const { server } = constructTestServer({
       context: () => ({
         headers: {
@@ -31,6 +38,7 @@ describe('NER', () => {
 
     const labeledEntities = data.ner.filter((_, ii) => ii % 2);
     const unlabeledEntities = data.ner.filter((_, ii) => ii % 2 === 0);
+
     labeledEntities.forEach(entity => expect(entity.isEntity).toBeTruthy());
     unlabeledEntities.forEach(entity =>
       expect(entity.isEntity).not.toBeTruthy()
