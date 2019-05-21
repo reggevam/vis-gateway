@@ -1,0 +1,39 @@
+enum EntityTypes {
+  PER
+  DATE
+  LOC
+  ORG
+  TIME
+  MISC
+}
+
+enum engineTypes {
+  NeuralEngine
+  RegexEngine
+}
+
+interface EntityBase {
+  isEntity: Boolean!
+  text: String!
+}
+
+# type NullEntity implements EntityBase {
+#   isEntity: Boolean!
+#   text: String!
+# }
+
+type Entity {
+  isEntity: Boolean!
+  text: String!
+  type: EntityTypes
+  startOffset: Int
+  endOffset: Int
+  confidence: Float
+  engine: engineTypes
+}
+
+# union Entity = NullEntity | LabeledEntity
+
+type Query {
+  ner(content: String!): [Entity!]!
+}

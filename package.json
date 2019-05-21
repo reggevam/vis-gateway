@@ -6,6 +6,7 @@
   "dependencies": {
     "apollo-datasource": "^0.4.0",
     "apollo-server": "^2.5.0",
+    "construct-highlight-array": "git+https://github.com/reggevam/construct-highlight-array.git",
     "graphql": "^14.3.0",
     "merge-graphql-schemas": "^1.5.8"
   },

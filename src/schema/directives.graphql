@@ -1,0 +1,1 @@
+directive @permission(role: String!) on FIELD_DEFINITION
