@@ -1,0 +1,39 @@
+{
+  "name": "vis-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "apollo-datasource": "^0.4.0",
+    "apollo-server": "^2.5.0",
+    "graphql": "^14.3.0",
+    "merge-graphql-schemas": "^1.5.8"
+  },
+  "devDependencies": {
+    "apollo-server-testing": "^2.5.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "husky": "^2.3.0",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.0",
+    "prettier": "^1.17.1"
+  },
+  "scripts": {
+    "start": "node ./scripts/start.js",
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:no-watch": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reggevam/vis-gateway.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reggevam/vis-gateway/issues"
+  },
+  "homepage": "https://github.com/reggevam/vis-gateway#readme"
+}
