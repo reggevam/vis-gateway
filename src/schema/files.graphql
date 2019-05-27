@@ -1,11 +1,57 @@
+enum EntityTypes {
+  PER
+  DATE
+  LOC
+  ORG
+  TIME
+  MISC
+}
+
+enum engineTypes {
+  NeuralEngine
+  RegexEngine
+}
+
+type Tag {
+  text: String!
+  isEntity: Boolean!
+  type: EntityTypes
+  confidence: Float
+  engine: engineTypes
+  isKeyword: Boolean!
+}
+
+type Entity {
+  text: String!
+  isEntity: Boolean!
+  type: EntityTypes
+  confidence: Float
+  engine: engineTypes
+}
+
+type Keyword {
+  text: String!
+  isKeyword: Boolean!
+}
+
 type File {
   filename: String!
   mimetype: String!
-  encoding: String! # not relevant
+  encoding: String!
+  id: ID!
+  hasEntities: Boolean!
+  hasKeywords: Boolean!
+  content: String!
+  entities: [Entity!]!
+  keywords: [Keyword!]!
+  tags: [Tag!]!
 }
 
 type Query {
-  files: [File!]!
+  allFiles: [File!]!
+  ner(fileId: ID!): File!
+  keywords(fileId: ID!): File!
+  helloTika: String!
 }
 
 type Mutation {

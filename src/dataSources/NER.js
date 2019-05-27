@@ -3,8 +3,10 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 class NERApi extends RESTDataSource {
   constructor() {
     super();
-    // TODO:: move this to .env file
-    this.baseURL = 'http://10.42.130.49:8081/';
+    if (!process.env.NER_URL) {
+      throw new Error('missing environment variable: NER_URL');
+    }
+    this.baseURL = process.env.NER_URL;
   }
 
   fetchEntities(content) {

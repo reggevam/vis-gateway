@@ -1,12 +1,14 @@
 const { ApolloServer } = require('apollo-server');
 const { typeDefs, resolvers, schemaDirectives } = require('./schema');
 const formatError = require('./formatErrors');
-const { NERApi } = require('./dataSources');
+const { NERApi, TikaServer, FilesManager } = require('./dataSources');
 
 const context = async ({ req }) => req;
 
 const dataSources = () => ({
   nerApi: new NERApi(),
+  tikaServer: new TikaServer(),
+  files: new FilesManager(),
 });
 
 const server = new ApolloServer({

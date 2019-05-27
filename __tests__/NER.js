@@ -2,14 +2,19 @@ const { createTestClient } = require('apollo-server-testing');
 const { gql } = require('apollo-server');
 const { constructTestServer } = require('../__testUtils');
 const dummyContent = require('./../fixtures/ner-text');
+require('dotenv').config();
 
 jest.mock('./../src/dataSources/NER.js');
+jest.mock('./../src/dataSources/FilesManager.js');
 
 const nerQuery = gql`
-  query ner($content: String!) {
-    ner(content: $content) {
-      isEntity
-      text
+  query ner($fileId: ID!) {
+    ner(fileId: $fileId) {
+      id
+      entities {
+        isEntity
+        text
+      }
     }
   }
 `;
@@ -28,11 +33,10 @@ describe('NER', () => {
 
     const { data } = await query({
       query: nerQuery,
-      variables: { content: dummyContent },
+      variables: { fileId: 1 },
     });
-
-    const labeledEntities = data.ner.filter((_, ii) => ii % 2);
-    const unlabeledEntities = data.ner.filter((_, ii) => ii % 2 === 0);
+    const labeledEntities = data.ner.entities.filter((_, ii) => ii % 2);
+    const unlabeledEntities = data.ner.entities.filter((_, ii) => ii % 2 === 0);
 
     labeledEntities.forEach(entity => expect(entity.isEntity).toBeTruthy());
     unlabeledEntities.forEach(entity =>
