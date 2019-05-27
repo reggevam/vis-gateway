@@ -1,0 +1,13 @@
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String! # not relevant
+}
+
+type Query {
+  files: [File!]!
+}
+
+type Mutation {
+  singleUpload(file: Upload!): File!
+}

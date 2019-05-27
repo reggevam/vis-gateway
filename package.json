@@ -31,7 +31,8 @@
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:no-watch": "jest",
-    "env": "sync-dotenv"
+    "env": "sync-dotenv",
+    "tika-server": "docker run -d -p 9998:9998 --name tika-server logicalspark/docker-tikaserver"
   },
   "husky": {
     "pre-commit": "npn run test:no-watch",
