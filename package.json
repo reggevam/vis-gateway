@@ -30,7 +30,12 @@
     "start": "node ./scripts/start.js",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:no-watch": "jest"
+    "test:no-watch": "jest",
+    "env": "sync-dotenv"
+  },
+  "husky": {
+    "pre-commit": "npn run test:no-watch",
+    "pre-push": "npm run env"
   },
   "repository": {
     "type": "git",
