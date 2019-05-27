@@ -1,18 +1,15 @@
-const { DataSource } = require('apollo-datasource');
+const { RESTDataSource } = require('apollo-datasource-rest');
 const labels = require('./../../fixtures/ner-labels');
-class NERApi extends DataSource {
+
+class NERApi extends RESTDataSource {
   constructor() {
     super();
-  }
-
-  initialize(config) {
-    this.context = config.context;
+    // TODO:: move this to .env file
+    this.baseURL = 'http://10.42.130.49:8081/';
   }
 
   fetchEntities(content) {
-    //TODO:: implement
-    console.warn('delivering fake response!');
-    return labels;
+    return this.post('ner', { content });
   }
 }
 

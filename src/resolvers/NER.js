@@ -8,8 +8,7 @@ module.exports = {
       const entities = await nerApi.fetchEntities(content);
 
       // // TODO:: consider moving this to the dataSource
-      const response = setupHighlightArray(content, entities);
-      return response;
+      return setupHighlightArray(content, entities);
     },
   },
 };
