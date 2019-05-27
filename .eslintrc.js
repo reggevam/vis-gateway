@@ -4,8 +4,8 @@ module.exports = {
     es6: true,
     node: true,
   },
-  plugins: ['jest'],
-  extends: ['airbnb-base', 'plugin:jest/recommended'],
+  plugins: ['jest', 'prettier'],
+  extends: ['airbnb-base', 'plugin:jest/recommended', 'prettier'],
   globals: {
     'jest/globals': true,
     Atomics: 'readonly',
@@ -15,6 +15,7 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
+    'prettier/prettier': ['error'],
     'no-console': ['error', { allow: ['info', 'error', 'warn'] }],
     'arrow-parens': ['error', 'as-needed'],
     'jest/no-identical-title': 'error',

@@ -8,6 +8,7 @@
     "apollo-datasource-rest": "^0.4.0",
     "apollo-server": "^2.5.0",
     "construct-highlight-array": "git+https://github.com/reggevam/construct-highlight-array.git",
+    "dotenv": "^8.0.0",
     "graphql": "^14.3.0",
     "merge-graphql-schemas": "^1.5.8"
   },
@@ -15,11 +16,15 @@
     "apollo-server-testing": "^2.5.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^22.6.4",
+    "eslint-plugin-prettier": "^3.1.0",
     "husky": "^2.3.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.0",
-    "prettier": "^1.17.1"
+    "prettier": "^1.17.1",
+    "sync-dotenv": "^2.0.3"
   },
   "scripts": {
     "start": "node ./scripts/start.js",

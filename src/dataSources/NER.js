@@ -1,5 +1,4 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
-const labels = require('./../../fixtures/ner-labels');
 
 class NERApi extends RESTDataSource {
   constructor() {

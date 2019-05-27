@@ -2,6 +2,7 @@ const { createTestClient } = require('apollo-server-testing');
 const { gql } = require('apollo-server');
 const { constructTestServer } = require('../__testUtils');
 const dummyContent = require('./../fixtures/ner-text');
+
 jest.mock('./../src/dataSources/NER.js');
 
 const nerQuery = gql`
