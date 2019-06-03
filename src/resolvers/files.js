@@ -2,7 +2,7 @@ module.exports = {
   File: {
     entities: async ({ id: fileId }, _, { dataSources: { nerApi, files } }) => {
       const file = files.getFile(fileId);
-      if (file.hasEntities) return file;
+      if (file.hasEntities) return file.entities;
       const entities = await nerApi.fetchEntities(file.content);
       const { entities: fileEntities } = await files.setEntities(
         fileId,
