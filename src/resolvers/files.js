@@ -1,11 +1,11 @@
 module.exports = {
   File: {
-    entities: async ({ id: fileId }, _, { dataSources: { nerApi, files } }) => {
-      const file = files.getFile(fileId);
+    entities: async ({ id }, _, { dataSources: { nerApi, files } }) => {
+      const file = files.getFile(id);
       if (file.hasEntities) return file.entities;
       const entities = await nerApi.fetchEntities(file.content);
       const { entities: fileEntities } = await files.setEntities(
-        fileId,
+        id,
         file.content,
         entities
       );
@@ -17,7 +17,7 @@ module.exports = {
     helloTika: (_, __, { dataSources: { tikaServer } }) => {
       return tikaServer.sayHello();
     },
-    file: (_, { fileId }, { dataSources: { files } }) => files.getFile(fileId),
+    file: (_, { id }, { dataSources: { files } }) => files.getFile(id),
   },
   Mutation: {
     uploadFile: async (

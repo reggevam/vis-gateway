@@ -7,7 +7,6 @@ jest.mock('./../src/dataSources/NER.js');
 jest.mock('./../src/dataSources/FilesManager.js');
 jest.mock('./../src/dataSources/TikaServer.js');
 jest.mock('./../src/dataSources/cachedState.js');
-const SET_EMPTY_CACHE = true;
 
 const uploadFileMutation = gql`
   mutation uploadFile($file: Upload!) {
@@ -27,8 +26,8 @@ const uploadFileMutation = gql`
 `;
 
 const nerQuery = gql`
-  query file($fileId: ID!) {
-    file(fileId: $fileId) {
+  query file($id: ID!) {
+    file(id: $id) {
       id
       hasEntities
       entities {
@@ -40,8 +39,8 @@ const nerQuery = gql`
 `;
 
 const fileQuery = gql`
-  query file($fileId: ID!) {
-    file(fileId: $fileId) {
+  query file($id: ID!) {
+    file(id: $id) {
       filename
       mimetype
       encoding
@@ -83,11 +82,11 @@ describe('files', () => {
     const { server } = constructTestServer();
     const testClient = createTestClient(server);
     const { data: uploadData } = await uploadFile(testClient);
-    const fileId = uploadData.uploadFile.id;
+    const { id } = uploadData.uploadFile;
     const { query } = testClient;
     const { data: fileData } = await query({
       query: fileQuery,
-      variables: { fileId },
+      variables: { id },
     });
     expect(fileData).toMatchSnapshot();
   });
@@ -99,7 +98,7 @@ describe('files', () => {
     const { query } = testClient;
     const { data } = await query({
       query: nerQuery,
-      variables: { fileId: 1 },
+      variables: { id: 1 },
     });
 
     const labeledEntities = data.file.entities.filter((_, ii) => ii % 2);

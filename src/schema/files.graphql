@@ -7,20 +7,18 @@ enum EntityTypes {
   MISC
 }
 
-# enum engineTypes {
-#   NeuralEngine
-#   RegexEngine
-#   regex
-#   neural-flair
-#   neural
-# }
+enum engineTypes {
+  regex
+  neural_flair
+  neural
+}
 
 type Tag {
   text: String!
   isEntity: Boolean!
   type: EntityTypes
   confidence: Float
-  engine: String # engineTypes
+  engine: engineTypes
   isKeyword: Boolean!
 }
 
@@ -29,7 +27,7 @@ type Entity {
   isEntity: Boolean!
   type: EntityTypes
   confidence: Float
-  engine: String # engineTypes
+  engine: engineTypes
 }
 
 type Keyword {
@@ -52,7 +50,7 @@ type File {
 
 type Query {
   allFiles: [File!]!
-  file(fileId: ID!): File!
+  file(id: ID!): File!
   helloTika: String!
 }
 
