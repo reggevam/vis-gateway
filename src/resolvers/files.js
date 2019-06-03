@@ -4,7 +4,12 @@ module.exports = {
       const file = files.getFile(fileId);
       if (file.hasEntities) return file;
       const entities = await nerApi.fetchEntities(file.content);
-      return files.setEntities(fileId, file.content, entities);
+      const { entities: fileEntities } = await files.setEntities(
+        fileId,
+        file.content,
+        entities
+      );
+      return fileEntities;
     },
   },
   Query: {
