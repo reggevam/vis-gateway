@@ -49,11 +49,10 @@ type File {
 
 type Query {
   allFiles: [File!]!
-  ner(fileId: ID!): File!
-  keywords(fileId: ID!): File!
+  file(fileId: ID!): File!
   helloTika: String!
 }
 
 type Mutation {
-  singleUpload(file: Upload!): File!
+  uploadFile(file: Upload!): File!
 }

@@ -16,6 +16,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error'],
+    'jest/no-focused-tests': 'warn',
     'no-console': ['error', { allow: ['info', 'error', 'warn'] }],
     'arrow-parens': ['error', 'as-needed'],
     'jest/no-identical-title': 'error',

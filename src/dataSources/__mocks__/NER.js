@@ -6,7 +6,7 @@ class NERApi extends DataSource {
     this.context = config.context;
   }
 
-  fetchEntities(content) {
+  fetchEntities() {
     return labels;
   }
 }
