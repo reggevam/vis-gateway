@@ -1,7 +1,7 @@
 const { DataSource } = require('apollo-datasource');
+const uuid = require('uuid');
 const { setupHighlightArray } = require('./../../workers');
 const dummyContent = require('../../../fixtures/ner-text');
-const uuid = require('uuid');
 
 class Files extends DataSource {
   constructor() {
@@ -26,12 +26,14 @@ class Files extends DataSource {
       ...this.state,
       [fileId]: {
         ...file,
+        id: fileId,
         hasEntities: false,
         hasKeywords: false,
         tags: [],
       },
     };
-    return fileId;
+
+    return this.state[fileId];
   }
 
   getAll() {

@@ -1,16 +1,31 @@
 const { createTestClient } = require('apollo-server-testing');
 const { gql } = require('apollo-server');
 const { constructTestServer } = require('../__testUtils');
-const dummyContent = require('./../fixtures/ner-text');
 require('dotenv').config();
 
 jest.mock('./../src/dataSources/NER.js');
 jest.mock('./../src/dataSources/FilesManager.js');
+jest.mock('./../src/dataSources/TikaServer.js');
+
+const uploadFileMutation = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      filename
+      mimetype
+      encoding
+      id
+      hasEntities
+      hasKeywords
+      content
+    }
+  }
+`;
 
 const nerQuery = gql`
-  query ner($fileId: ID!) {
-    ner(fileId: $fileId) {
+  query file($fileId: ID!) {
+    file(fileId: $fileId) {
       id
+      hasEntities
       entities {
         isEntity
         text
@@ -19,8 +34,26 @@ const nerQuery = gql`
   }
 `;
 
-describe('NER', () => {
-  test('ner is returning empty and labeled entities, even entities are labeled and odds are not', async () => {
+const mockFile = new Promise(res =>
+  res({
+    filename: 'mock file',
+    mimetype: 'mock mimetype',
+    encoding: 'mock encoding',
+  })
+);
+
+describe('files', () => {
+  test.only('upload a file, expect hasEntities and hasKeywords to be false', async () => {
+    const { server } = constructTestServer();
+    const { mutate } = createTestClient(server);
+    const { data } = await mutate({
+      mutation: uploadFileMutation,
+      variables: { file: mockFile },
+    });
+    expect(data).toMatchSnapshot();
+  });
+
+  test.skip('ner is returning empty and labeled entities, even entities are labeled and odds are not', async () => {
     const { server } = constructTestServer({
       context: () => ({
         headers: {
@@ -28,9 +61,8 @@ describe('NER', () => {
         },
       }),
     });
-
+    // upload a file
     const { query } = createTestClient(server);
-
     const { data } = await query({
       query: nerQuery,
       variables: { fileId: 1 },

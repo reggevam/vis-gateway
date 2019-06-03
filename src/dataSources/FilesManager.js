@@ -1,29 +1,16 @@
 const { DataSource } = require('apollo-datasource');
-const { setupHighlightArray } = require('../workers');
 const uuid = require('uuid');
-
-/* 
-  state: {
-    fileId: {
-      id,
-
-      entities: bool,
-      keywords: bool,
-      content: string,
-      tags: [{
-        content: string,
-        isKeyword: bool
-        isEntity: bool
-        entityType: enum
-      }]
-    }
-  }
-*/
+const { setupHighlightArray } = require('../workers');
+const cachedState = require('./cachedState');
 
 class FilesManager extends DataSource {
-  constructor(initialState = {}) {
+  constructor() {
     super();
-    this.state = initialState;
+    this.state = cachedState;
+    this.create = this.create.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.setEntities = this.setEntities.bind(this);
+    this.getFile = this.getFile.bind(this);
   }
 
   initialize(config) {
@@ -32,37 +19,32 @@ class FilesManager extends DataSource {
 
   create(file) {
     const fileId = uuid.v4();
-    this.state = {
-      ...this.state,
-      [fileId]: {
-        ...file,
-        hasEntities: false,
-        hasKeywords: false,
-        tags: [],
-      },
+    this.state[fileId] = {
+      ...file,
+      id: fileId,
+      hasEntities: false,
+      hasKeywords: false,
+      tags: [],
     };
-    return fileId;
+    return this.state[fileId];
   }
 
   getAll() {
     return Object.values(this.state);
   }
 
-  async setEntities(fileId, entities) {
+  async setEntities(fileId, content, entities) {
     const highlightArray = await setupHighlightArray(content, entities);
-    this.state = {
-      ...this.state,
-      [fileId]: {
-        ...this.state[fileId],
-        entities: highlightArray,
-        hasEntities: true,
-      },
+    this.state[fileId] = {
+      ...this.state[fileId],
+      entities: highlightArray,
+      hasEntities: true,
     };
     return this.state[fileId];
   }
 
-  getFile(id) {
-    return this.state[id];
+  getFile(fileId) {
+    return this.state[fileId];
   }
 }
 
