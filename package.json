@@ -10,6 +10,7 @@
     "construct-highlight-array": "git+https://github.com/reggevam/construct-highlight-array.git",
     "dotenv": "^8.0.0",
     "graphql": "^14.3.0",
+    "lodash": "^4.17.11",
     "merge-graphql-schemas": "^1.5.8",
     "request": "^2.88.0",
     "uuid": "^3.3.2"

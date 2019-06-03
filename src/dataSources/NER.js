@@ -9,8 +9,8 @@ class NERApi extends RESTDataSource {
     this.baseURL = process.env.NER_URL;
   }
 
-  fetchEntities(content) {
-    return this.post('ner', { content });
+  fetchEntities(content, { engines }) {
+    return this.post('ner', { content, engines });
   }
 }
 

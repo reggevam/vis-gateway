@@ -23,9 +23,14 @@ class FilesManager extends DataSource {
     this.state[fileId] = {
       ...file,
       id: fileId,
-      hasEntities: false,
-      hasKeywords: false,
+      entities: [],
+      keywords: [],
+      summary: '',
       tags: [],
+      // should be dropped
+      hasEntities: false,
+      // should be dropped
+      hasKeywords: false,
     };
     return this.state[fileId];
   }
@@ -34,14 +39,36 @@ class FilesManager extends DataSource {
     return Object.values(this.state);
   }
 
-  async setEntities(fileId, content, entities) {
+  async setEntities(fileId, content, entities, entitiesSettings) {
     const highlightArray = await setupHighlightArray(content, entities);
     this.state[fileId] = {
       ...this.state[fileId],
       entities: highlightArray,
+      entitiesSettings,
       hasEntities: true,
     };
-    return this.state[fileId];
+    return this.getFile(fileId);
+  }
+
+  async setKeywords(fileId, content, keywords, keywordsSettings) {
+    // const highlightArray = await setupHighlightArray(content, keywords);
+    this.state[fileId] = {
+      ...this.state[fileId],
+      // keywords: highlightArray,
+      keywords, // temporary
+      keywordsSettings,
+      hasKeywords: true,
+    };
+    return this.getFile(fileId);
+  }
+
+  setSummary(fileId, summary, settings) {
+    this.state[fileId] = {
+      ...this.state[fileId],
+      summary,
+      summarySettings: settings,
+    };
+    return this.getFile(fileId);
   }
 
   getFile(fileId) {
