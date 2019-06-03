@@ -2,6 +2,7 @@ const { DataSource } = require('apollo-datasource');
 const uuid = require('uuid');
 const { setupHighlightArray } = require('../workers');
 const cachedState = require('./cachedState');
+const { FileNotFoundError } = require('./../errors');
 
 class FilesManager extends DataSource {
   constructor() {
@@ -44,7 +45,11 @@ class FilesManager extends DataSource {
   }
 
   getFile(fileId) {
-    return this.state[fileId];
+    const file = this.state[fileId];
+    if (!file) {
+      throw FileNotFoundError(fileId);
+    }
+    return file;
   }
 }
 
