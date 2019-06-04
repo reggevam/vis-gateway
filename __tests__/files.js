@@ -15,12 +15,7 @@ const uploadFileMutation = gql`
       mimetype
       encoding
       id
-      hasEntities
-      hasKeywords
       content
-      tags {
-        isEntity
-      }
     }
   }
 `;
@@ -29,7 +24,6 @@ const nerQuery = gql`
   query file($id: ID!) {
     file(id: $id) {
       id
-      hasEntities
       entities {
         isEntity
         text
@@ -45,8 +39,6 @@ const fileQuery = gql`
       mimetype
       encoding
       id
-      hasEntities
-      hasKeywords
       content
     }
   }

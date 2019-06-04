@@ -1,5 +1,4 @@
 const { ApolloServer } = require('apollo-server');
-const { RedisCache } = require('apollo-server-cache-redis');
 const { typeDefs, resolvers, schemaDirectives } = require('./schema');
 const formatError = require('./formatErrors');
 
@@ -29,9 +28,6 @@ const server = new ApolloServer({
   formatError,
   dataSources,
   context,
-  cache: new RedisCache({
-    host: 'localhost',
-  }),
 });
 
 module.exports = {

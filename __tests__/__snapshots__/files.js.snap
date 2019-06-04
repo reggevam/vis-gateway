@@ -7,8 +7,6 @@ Object {
 On the morning of Sunday 01/01/1970, I was dispatched to 1600 Pennsylvania Avenue Northwest",
     "encoding": "mock encoding",
     "filename": "mock file",
-    "hasEntities": false,
-    "hasKeywords": false,
     "id": "1",
     "mimetype": "mock mimetype",
   },
@@ -22,11 +20,8 @@ Object {
 On the morning of Sunday 01/01/1970, I was dispatched to 1600 Pennsylvania Avenue Northwest",
     "encoding": "mock encoding",
     "filename": "mock file",
-    "hasEntities": false,
-    "hasKeywords": false,
     "id": "1",
     "mimetype": "mock mimetype",
-    "tags": Array [],
   },
 }
 `;

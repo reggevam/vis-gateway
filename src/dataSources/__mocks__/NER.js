@@ -1,13 +1,17 @@
-const { DataSource } = require('apollo-datasource');
+const NERDataSource = require.requireActual('./../NER.js');
+const { setupHighlightArray } = require('../../workers');
 const labels = require('./../../../fixtures/ner-labels');
+const text = require('./../../../fixtures/ner-text');
 
-class NERApi extends DataSource {
-  initialize(config) {
-    this.context = config.context;
+const { entities: cachedState } = require.requireActual('./../cachedState.js');
+
+class NERApi extends NERDataSource {
+  constructor() {
+    super();
+    this.state = cachedState;
   }
-
   fetchEntities() {
-    return labels;
+    return setupHighlightArray(text, labels);
   }
 }
 

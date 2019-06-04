@@ -1,20 +1,10 @@
-const { isEqual } = require('lodash');
-
 module.exports = {
   File: {
     entities: async ({ id }, settings, { dataSources: { nerApi, files } }) => {
       const file = files.getFile(id);
-      if (file.hasEntities && isEqual(file.entitiesSettings, settings)) {
-        return file.entities;
-      }
-      const entities = await nerApi.fetchEntities(file.content, settings);
-      const { entities: fileEntities } = await files.setEntities(
-        id,
-        file.content,
-        entities,
-        settings
-      );
-      return fileEntities;
+      const entities = await nerApi.fetchEntities(id, file.content, settings);
+      nerApi.saveEntities(id, entities, settings);
+      return entities;
     },
     keywords: async (
       { id },
@@ -22,15 +12,13 @@ module.exports = {
       { dataSources: { keywordsApi, files } }
     ) => {
       const file = files.getFile(id);
-      if (file.hasKeywords && isEqual(file.keywordsSettings, settings))
-        return file.keywords;
-      const keywords = await keywordsApi.fetchKeywords(file.content, settings);
-      const { keywords: fileKeywords } = await files.setKeywords(
+      const keywords = await keywordsApi.fetchKeywords(
         id,
         file.content,
-        keywords
+        settings
       );
-      return fileKeywords;
+      keywordsApi.saveKeywords(id, keywords, settings);
+      return keywords;
     },
     summary: async (
       { id },
@@ -38,14 +26,13 @@ module.exports = {
       { dataSources: { summarizationApi, files } }
     ) => {
       const file = files.getFile(id);
-      if (file.summary && isEqual(file.summarySettings, settings))
-        return file.summary;
       const summary = await summarizationApi.fetchSummary(
+        id,
         file.content,
         settings
       );
-      const { summary: fileSummary } = files.setSummary(id, summary, settings);
-      return fileSummary;
+      summarizationApi.saveSummary(id, summary, settings);
+      return summary;
     },
   },
   Query: {

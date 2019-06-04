@@ -1,4 +1,4 @@
-module.exports = {
+const files = {
   1: {
     id: 1,
     content:
@@ -10,4 +10,8 @@ module.exports = {
     hasKeywords: false,
     tags: [],
   },
+};
+
+module.exports = {
+  files,
 };

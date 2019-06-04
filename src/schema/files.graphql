@@ -41,8 +41,6 @@ type File {
   mimetype: String!
   encoding: String!
   id: ID!
-  hasEntities: Boolean!
-  hasKeywords: Boolean!
   content: String!
   entities(engines: [String!]): [Entity!]!
   keywords(ratio: Float, words: Int): [Keyword!]!
