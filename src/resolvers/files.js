@@ -50,9 +50,8 @@ module.exports = {
   },
   Query: {
     allFiles: (_, __, { dataSources: { files } }) => files.getAll(),
-    helloTika: (_, __, { dataSources: { tikaServer } }) => {
-      return tikaServer.sayHello();
-    },
+    helloTika: (_, __, { dataSources: { tikaServer } }) =>
+      tikaServer.sayHello(),
     file: (_, { id }, { dataSources: { files } }) => files.getFile(id),
   },
   Mutation: {
