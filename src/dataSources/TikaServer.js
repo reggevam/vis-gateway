@@ -30,7 +30,7 @@ class TikaServer extends RESTDataSource {
   }
 
   async parseFile({ createReadStream }) {
-    const fileBuffer = await this.bufferToStream(createReadStream());
+    const fileBuffer = await TikaServer.bufferToStream(createReadStream());
     return new Promise((res, rej) =>
       request.post(
         {
