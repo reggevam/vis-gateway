@@ -1,0 +1,5 @@
+docker run --rm --name redis -d -p 6379:6379 redis
+
+docker exec -it redis redis-cli
+
+docker exec -it redis redis-cli monitor
