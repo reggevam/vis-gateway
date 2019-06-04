@@ -1,7 +1,5 @@
 const { isEqual } = require('lodash');
-
 const { RESTDataSource } = require('apollo-datasource-rest');
-const { summarization: cachedState } = require('./cachedState');
 
 class SummarizationApi extends RESTDataSource {
   constructor() {
@@ -10,23 +8,18 @@ class SummarizationApi extends RESTDataSource {
       throw new Error('missing environment variable: SUMMARIZATION_URL');
     }
     this.baseURL = process.env.SUMMARIZATION_URL;
-    this.state = cachedState;
     this.fetchSummary = this.fetchSummary.bind(this);
   }
 
-  fetchSummary(fileId, content, { ratio }) {
-    if (this.state[fileId] && isEqual(this.state[fileId].settings, { ratio })) {
-      console.info('returning cached summary');
-      return this.state[fileId].content;
+  async fetchSummary(fileId, content, settings) {
+    const cached = this.context.dataSources.cache.load('entities', fileId);
+    if (cached && isEqual(cached.settings, settings)) {
+      console.info('returning cached entities');
+      return cached.content;
     }
-    return this.post('sum', { text: content, ratio });
-  }
-
-  saveSummary(fileId, content, settings) {
-    this.state[fileId] = {
-      content,
-      settings,
-    };
+    const response = await this.post('sum', { text: content, ...settings });
+    this.context.dataSources.cache.save('entities', fileId, settings, response);
+    return response;
   }
 }
 

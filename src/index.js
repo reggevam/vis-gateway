@@ -8,6 +8,7 @@ const {
   FilesManager,
   KeywordsApi,
   SummarizationApi,
+  Cache,
 } = require('./dataSources');
 
 const context = async ({ req }) => req;
@@ -18,6 +19,7 @@ const dataSources = () => ({
   tikaServer: new TikaServer(),
   files: new FilesManager(),
   summarizationApi: new SummarizationApi(),
+  cache: new Cache()
 });
 
 const server = new ApolloServer({

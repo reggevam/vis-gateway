@@ -1,11 +1,7 @@
 const files = {};
-const keywords = {};
-const entities = {};
-const summarization = {};
+const common = {};
 
 module.exports = {
   files,
-  keywords,
-  entities,
-  summarization,
+  common,
 };

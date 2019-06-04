@@ -3,7 +3,6 @@ module.exports = {
     entities: async ({ id }, settings, { dataSources: { nerApi, files } }) => {
       const file = files.getFile(id);
       const entities = await nerApi.fetchEntities(id, file.content, settings);
-      nerApi.saveEntities(id, entities, settings);
       return entities;
     },
     keywords: async (
@@ -17,7 +16,6 @@ module.exports = {
         file.content,
         settings
       );
-      keywordsApi.saveKeywords(id, keywords, settings);
       return keywords;
     },
     summary: async (
@@ -31,7 +29,6 @@ module.exports = {
         file.content,
         settings
       );
-      summarizationApi.saveSummary(id, summary, settings);
       return summary;
     },
   },
