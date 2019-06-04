@@ -2,19 +2,6 @@ const request = require('request');
 const { RESTDataSource } = require('apollo-datasource-rest');
 const { Buffer } = require('buffer');
 
-const bufferFromStream = stream =>
-  new Promise(res => {
-    const data = [];
-
-    stream.on('data', chunk => {
-      data.push(chunk);
-    });
-
-    stream.on('end', () => {
-      res(Buffer.concat(data));
-    });
-  });
-
 class TikaServer extends RESTDataSource {
   constructor() {
     super();
@@ -28,8 +15,22 @@ class TikaServer extends RESTDataSource {
     return this.get('/tika');
   }
 
+  static bufferToStream(stream) {
+    return new Promise(res => {
+      const data = [];
+
+      stream.on('data', chunk => {
+        data.push(chunk);
+      });
+
+      stream.on('end', () => {
+        res(Buffer.concat(data));
+      });
+    });
+  }
+
   async parseFile({ createReadStream }) {
-    const fileBuffer = await bufferFromStream(createReadStream());
+    const fileBuffer = await this.bufferToStream(createReadStream());
     return new Promise((res, rej) =>
       request.post(
         {
