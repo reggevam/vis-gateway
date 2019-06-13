@@ -1,5 +1,5 @@
-const Permission = require('./Permission');
+const permission = require('./Permission');
 
 module.exports = {
-  permission: Permission,
+  permission,
 };

@@ -12,18 +12,21 @@ class NERApi extends RESTDataSource {
   }
 
   async fetchEntities(fileId, content, settings = {}) {
+    const sortedSettings = settings.engines
+      ? { ...settings, engines: settings.engines.slice().sort() }
+      : settings;
     const cached = this.context.dataSources.cache.load(
       this.constructor.name,
       fileId,
-      settings
+      sortedSettings
     );
     if (cached) return cached;
-    const data = await this.post('ner', { content, ...settings });
+    const data = await this.post('ner', { content, ...sortedSettings });
     const response = await setupHighlightArray(content, data);
     this.context.dataSources.cache.save(
       this.constructor.name,
       fileId,
-      settings,
+      sortedSettings,
       response
     );
     return response;

@@ -42,7 +42,7 @@ type File {
   encoding: String!
   id: ID!
   content: String!
-  entities(engines: [String!]): [Entity!]!
+  entities(engines: [engineTypes!]): [Entity!]!
   keywords(ratio: Float, words: Int): [Keyword!]!
   summary(ratio: Float): String!
   tags: [Tag!]!
