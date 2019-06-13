@@ -1,4 +1,3 @@
-const { isEqual } = require('lodash');
 const { RESTDataSource } = require('apollo-datasource-rest');
 
 class SummarizationApi extends RESTDataSource {
@@ -12,13 +11,18 @@ class SummarizationApi extends RESTDataSource {
   }
 
   async fetchSummary(fileId, content, settings) {
-    const cached = this.context.dataSources.cache.load('entities', fileId);
-    if (cached && isEqual(cached.settings, settings)) {
-      console.info('returning cached entities');
-      return cached.content;
-    }
+    const cached = this.context.dataSources.cache.load(
+      this.constructor.name,
+      fileId
+    );
+    if (cached) return cached;
     const response = await this.post('sum', { text: content, ...settings });
-    this.context.dataSources.cache.save('entities', fileId, settings, response);
+    this.context.dataSources.cache.save(
+      this.constructor.name,
+      fileId,
+      settings,
+      response
+    );
     return response;
   }
 }

@@ -1,4 +1,3 @@
-const { isEqual } = require('lodash');
 const { RESTDataSource } = require('apollo-datasource-rest');
 const { setupHighlightArray } = require('../workers');
 
@@ -13,14 +12,20 @@ class NERApi extends RESTDataSource {
   }
 
   async fetchEntities(fileId, content, settings = {}) {
-    const cached = this.context.dataSources.cache.load('entities', fileId);
-    if (cached && isEqual(cached.settings, settings)) {
-      console.info('returning cached entities');
-      return cached.content;
-    }
+    const cached = this.context.dataSources.cache.load(
+      this.constructor.name,
+      fileId,
+      settings
+    );
+    if (cached) return cached;
     const data = await this.post('ner', { content, ...settings });
     const response = await setupHighlightArray(content, data);
-    this.context.dataSources.cache.save('entities', fileId, settings, response);
+    this.context.dataSources.cache.save(
+      this.constructor.name,
+      fileId,
+      settings,
+      response
+    );
     return response;
   }
 }

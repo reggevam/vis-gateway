@@ -1,3 +1,4 @@
+const objectHash = require('object-hash');
 const { DataSource } = require('apollo-datasource');
 const { common: cachedState } = require('./cachedState');
 
@@ -8,20 +9,26 @@ class Cache extends DataSource {
   }
 
   save(field, fileId, settings, content) {
-    if (!this.state[field]) {
-      this.state[field] = {};
-    }
-    this.state[field][fileId] = {
+    console.info(`creating new cache entry for ${field}`);
+    const hashedKey = objectHash({
+      field,
+      fileId,
       settings,
-      content,
-    };
+    });
+    this.state[hashedKey] = content;
   }
 
-  load(field, fileId) {
-    if (!this.state[field]) {
-      return null;
+  load(field, fileId, settings) {
+    const hashedKey = objectHash({
+      field,
+      fileId,
+      settings,
+    });
+    const response = this.state[hashedKey];
+    if (response) {
+      console.info('returning cached result');
     }
-    return this.state[field][fileId];
+    return response;
   }
 }
 
