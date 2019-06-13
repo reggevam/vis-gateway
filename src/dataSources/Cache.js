@@ -10,7 +10,6 @@ class Cache extends DataSource {
 
   save(field, fileId, settings, content) {
     console.info(`creating new cache entry for ${field}`);
-    console.log(settings);
     const hashedKey = objectHash({
       field,
       fileId,
