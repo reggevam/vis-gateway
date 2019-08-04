@@ -19,7 +19,7 @@ const dataSources = () => ({
   tikaServer: new TikaServer(),
   files: new FilesManager(),
   summarizationApi: new SummarizationApi(),
-  cache: new Cache()
+  cache: new Cache(),
 });
 
 const server = new ApolloServer({
