@@ -36,6 +36,11 @@ type Keyword {
   isKeyword: Boolean!
 }
 
+type KeyPhrase {
+  text: String!
+  confidence: Float!
+}
+
 type File {
   filename: String!
   mimetype: String!
@@ -45,6 +50,7 @@ type File {
   entities(engines: [engineTypes!]): [Entity!]!
   keywords(ratio: Float, words: Int): [Keyword!]!
   summary(ratio: Float): [String!]!
+  keyPhrases(ratio: Float): [KeyPhrase!]!
   tags: [Tag!]!
 }
 

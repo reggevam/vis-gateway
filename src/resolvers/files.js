@@ -31,6 +31,19 @@ module.exports = {
       );
       return summary;
     },
+    keyPhrases: async (
+      { id },
+      settings,
+      { dataSources: { KeyPhrasesApi, files } }
+    ) => {
+      const file = files.getFile(id);
+      const keyPhrases = await KeyPhrasesApi.fetchKeyPhrases(
+        id,
+        file.content,
+        settings
+      );
+      return keyPhrases;
+    },
   },
   Query: {
     allFiles: (_, __, { dataSources: { files } }) => files.getAll(),

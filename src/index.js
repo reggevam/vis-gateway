@@ -8,17 +8,18 @@ const {
   FilesManager,
   KeywordsApi,
   SummarizationApi,
+  KeyPhrasesApi,
   Cache,
 } = require('./dataSources');
-
 const context = async ({ req }) => req;
 
 const dataSources = () => ({
   nerApi: new NERApi(),
   keywordsApi: new KeywordsApi(),
   tikaServer: new TikaServer(),
-  files: new FilesManager(),
   summarizationApi: new SummarizationApi(),
+  KeyPhrasesApi: new KeyPhrasesApi(),
+  files: new FilesManager(),
   cache: new Cache(),
 });
 
