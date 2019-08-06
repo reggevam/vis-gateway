@@ -8,9 +8,9 @@ const {
   FilesManager,
   KeywordsApi,
   SummarizationApi,
-  KeyPhrasesApi,
   Cache,
 } = require('./dataSources');
+
 const context = async ({ req }) => req;
 
 const dataSources = () => ({
@@ -18,7 +18,6 @@ const dataSources = () => ({
   keywordsApi: new KeywordsApi(),
   tikaServer: new TikaServer(),
   summarizationApi: new SummarizationApi(),
-  KeyPhrasesApi: new KeyPhrasesApi(),
   files: new FilesManager(),
   cache: new Cache(),
 });

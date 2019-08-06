@@ -33,12 +33,6 @@ type Entity {
 type Keyword {
   text: String!
   confidence: Float!
-  isKeyword: Boolean!
-}
-
-type KeyPhrase {
-  text: String!
-  confidence: Float!
 }
 
 type File {
@@ -50,7 +44,6 @@ type File {
   entities(engines: [engineTypes!]): [Entity!]!
   keywords(ratio: Float, words: Int): [Keyword!]!
   summary(ratio: Float): [String!]!
-  keyPhrases(ratio: Float): [KeyPhrase!]!
   tags: [Tag!]!
 }
 

@@ -5,19 +5,6 @@ module.exports = {
       const entities = await nerApi.fetchEntities(id, file.content, settings);
       return entities;
     },
-    keywords: async (
-      { id },
-      settings,
-      { dataSources: { keywordsApi, files } }
-    ) => {
-      const file = files.getFile(id);
-      const keywords = await keywordsApi.fetchKeywords(
-        id,
-        file.content,
-        settings
-      );
-      return keywords;
-    },
     summary: async (
       { id },
       settings,
@@ -31,18 +18,18 @@ module.exports = {
       );
       return summary;
     },
-    keyPhrases: async (
+    keywords: async (
       { id },
       settings,
-      { dataSources: { KeyPhrasesApi, files } }
+      { dataSources: { keywordsApi, files } }
     ) => {
       const file = files.getFile(id);
-      const keyPhrases = await KeyPhrasesApi.fetchKeyPhrases(
+      const keywords = await keywordsApi.fetchKeywords(
         id,
         file.content,
         settings
       );
-      return keyPhrases;
+      return keywords;
     },
   },
   Query: {

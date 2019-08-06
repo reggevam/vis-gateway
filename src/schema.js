@@ -8,7 +8,7 @@ const path = require('path');
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema/')));
 
 const resolvers = mergeResolvers(
-  fileLoader(path.join(__dirname, './resolvers/')),
+  fileLoader(path.join(__dirname, './resolvers/'))
 );
 const schemaDirectives = require('./schemaDirectives');
 

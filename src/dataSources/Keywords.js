@@ -1,16 +1,16 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
-class KeyPhrases extends RESTDataSource {
+class Keywords extends RESTDataSource {
   constructor() {
     super();
-    if (!process.env.KEY_PHRASES) {
-      throw new Error('missing environment variable: KEY_PHRASES');
+    if (!process.env.KEYWORDS_URL) {
+      throw new Error('missing environment variable: KEYWORDS_URL');
     }
-    this.baseURL = process.env.KEY_PHRASES;
-    this.fetchKeyPhrases = this.fetchKeyPhrases.bind(this);
+    this.baseURL = process.env.KEYWORDS_URL;
+    this.fetchKeywords = this.fetchKeywords.bind(this);
   }
 
-  async fetchKeyPhrases(fileId, content, settings) {
+  async fetchKeywords(fileId, content, settings) {
     const cached = this.context.dataSources.cache.load(
       this.constructor.name,
       fileId
@@ -27,4 +27,4 @@ class KeyPhrases extends RESTDataSource {
   }
 }
 
-module.exports = KeyPhrases;
+module.exports = Keywords;
