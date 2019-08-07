@@ -12,3 +12,54 @@ On the morning of Sunday 01/01/1970, I was dispatched to 1600 Pennsylvania Avenu
   },
 }
 `;
+
+exports[`files summarization is returning a highligh array with tagIds 1`] = `
+Object {
+  "file": Object {
+    "content": "The following is a statement of Patrolman Mark Coral with reference to the investigation of the homicide of Ana Smith age 31, married to Mark Smith.
+On the morning of Sunday 01/01/1970, I was dispatched to 1600 Pennsylvania Avenue Northwest",
+    "encoding": "mock encoding",
+    "filename": "mock file",
+    "id": "1",
+    "mimetype": "mock mimetype",
+    "summary": Array [
+      Object {
+        "isEntity": false,
+        "tagIdx": null,
+        "text": "",
+      },
+      Object {
+        "isEntity": true,
+        "tagIdx": 0,
+        "text": "The following is a statement of Patrolman Mark Coral",
+      },
+      Object {
+        "isEntity": false,
+        "tagIdx": null,
+        "text": " with reference to the investigation of the homicide of Ana Smith age 31, ",
+      },
+      Object {
+        "isEntity": true,
+        "tagIdx": 1,
+        "text": "married to Mark Smith.",
+      },
+      Object {
+        "isEntity": false,
+        "tagIdx": null,
+        "text": "
+On the morning of Sunday 01/01/1970, ",
+      },
+      Object {
+        "isEntity": true,
+        "tagIdx": 2,
+        "text": "I was dispatched to 1600 Pennsylvania Avenue Northwest",
+      },
+      Object {
+        "isEntity": false,
+        "tagIdx": null,
+        "text": "",
+      },
+    ],
+  },
+}
+`;

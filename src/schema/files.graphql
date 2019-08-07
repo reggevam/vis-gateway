@@ -35,6 +35,12 @@ type Keyword {
   confidence: Float!
 }
 
+type SummaryTag {
+  text: String!
+  isEntity: Boolean!
+  tagIdx: Int
+}
+
 type File {
   filename: String!
   mimetype: String!
@@ -43,7 +49,7 @@ type File {
   content: String!
   entities(engines: [engineTypes!]): [Entity!]!
   keywords(ratio: Float, words: Int): [Keyword!]!
-  summary(ratio: Float): [String!]!
+  summary(ratio: Float): [SummaryTag!]!
   tags: [Tag!]!
 }
 

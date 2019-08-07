@@ -6,7 +6,8 @@ require('dotenv').config();
 jest.mock('./../src/dataSources/NER.js');
 jest.mock('./../src/dataSources/FilesManager.js');
 jest.mock('./../src/dataSources/TikaServer.js');
-jest.mock('./../src/dataSources/cachedState.js');
+// jest.mock('./../src/dataSources/cachedState.js');
+jest.mock('./../src/dataSources/Summarization.js');
 
 const uploadFileMutation = gql`
   mutation uploadFile($file: Upload!) {
@@ -44,6 +45,23 @@ const fileQuery = gql`
   }
 `;
 
+const summaryQuery = gql`
+  query file($id: ID!, $ratio: Float) {
+    file(id: $id) {
+      filename
+      mimetype
+      encoding
+      id
+      content
+      summary(ratio: $ratio) {
+        tagIdx
+        text
+        isEntity
+      }
+    }
+  }
+`;
+
 const mockFile = new Promise(res =>
   res({
     filename: 'mock file',
@@ -61,15 +79,6 @@ const uploadFile = testClient => {
 };
 
 describe('files', () => {
-  test('upload a file, expect hasEntities and hasKeywords to be false', async () => {
-    process.env.INITIAL_FILE_CACHE = 'EMPTY';
-    const { server } = constructTestServer();
-    const testClient = createTestClient(server);
-    const { data } = await uploadFile(testClient);
-    expect(data).toMatchSnapshot();
-    process.env.INITIAL_FILE_CACHE = 'MOCK';
-  });
-
   test('fetch file byId', async () => {
     const { server } = constructTestServer();
     const testClient = createTestClient(server);
@@ -102,5 +111,17 @@ describe('files', () => {
     unlabeledEntities.forEach(entity =>
       expect(entity.isEntity).not.toBeTruthy()
     );
+  });
+
+  test('summarization is returning a highligh array with tagIds', async () => {
+    const { server } = constructTestServer();
+    const testClient = createTestClient(server);
+    await uploadFile(testClient);
+    const { query } = testClient;
+    const { data } = await query({
+      query: summaryQuery,
+      variables: { id: 1, ratio: 0.5 },
+    });
+    expect(data).toMatchSnapshot();
   });
 });

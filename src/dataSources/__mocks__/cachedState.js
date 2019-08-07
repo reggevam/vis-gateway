@@ -6,9 +6,6 @@ const files = {
     filename: 'mock file',
     mimetype: 'mock mimetype',
     encoding: 'mock encoding',
-    hasEntities: false,
-    hasKeywords: false,
-    tags: [],
   },
 };
 
