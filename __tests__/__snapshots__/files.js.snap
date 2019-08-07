@@ -12,16 +12,3 @@ On the morning of Sunday 01/01/1970, I was dispatched to 1600 Pennsylvania Avenu
   },
 }
 `;
-
-exports[`files upload a file, expect hasEntities and hasKeywords to be false 1`] = `
-Object {
-  "uploadFile": Object {
-    "content": "The following is a statement of Patrolman Mark Coral with reference to the investigation of the homicide of Ana Smith age 31, married to Mark Smith.
-On the morning of Sunday 01/01/1970, I was dispatched to 1600 Pennsylvania Avenue Northwest",
-    "encoding": "mock encoding",
-    "filename": "mock file",
-    "id": "1",
-    "mimetype": "mock mimetype",
-  },
-}
-`;

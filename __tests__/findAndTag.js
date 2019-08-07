@@ -16,6 +16,11 @@ describe('findAndTag', () => {
     expect(findAndTag(content, tags, 'text')).toMatchSnapshot();
   });
 
+  it('should construct and offsets array from flat strings', () => {
+    const flatTags = tags.map(tag => tag.text);
+    expect(findAndTag(content, flatTags)).toMatchSnapshot();
+  });
+
   it('should run async as a worker', async () => {
     expect(await findAndTagWorker(content, tags, 'text')).toMatchSnapshot();
   });
