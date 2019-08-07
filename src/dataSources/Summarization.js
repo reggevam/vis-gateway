@@ -1,4 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+const { findAndTag } = require('./../workers');
 
 class SummarizationApi extends RESTDataSource {
   constructor() {
@@ -23,6 +24,7 @@ class SummarizationApi extends RESTDataSource {
       settings,
       response
     );
+      console.log();
     return response;
   }
 }

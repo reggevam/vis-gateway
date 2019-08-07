@@ -11,6 +11,7 @@ Array [
     "endOffset": 3,
     "isEntity": true,
     "startOffset": 0,
+    "tagIdx": 0,
     "text": "the",
   },
   Object {
@@ -22,6 +23,7 @@ Array [
     "endOffset": 7,
     "isEntity": true,
     "startOffset": 4,
+    "tagIdx": 1,
     "text": "big",
   },
   Object {
@@ -33,6 +35,7 @@ Array [
     "endOffset": 29,
     "isEntity": true,
     "startOffset": 25,
+    "tagIdx": 2,
     "text": "over",
   },
   Object {
@@ -44,6 +47,7 @@ Array [
     "endOffset": 39,
     "isEntity": true,
     "startOffset": 34,
+    "tagIdx": 3,
     "text": "fence",
   },
   Object {
@@ -59,24 +63,28 @@ Array [
     "confidence": 0.1,
     "endOffset": 3,
     "startOffset": 0,
+    "tagIdx": 0,
     "text": "the",
   },
   Object {
     "confidence": 0.2,
     "endOffset": 7,
     "startOffset": 4,
+    "tagIdx": 1,
     "text": "big",
   },
   Object {
     "confidence": 0.3,
     "endOffset": 29,
     "startOffset": 25,
+    "tagIdx": 2,
     "text": "over",
   },
   Object {
     "confidence": 0.4,
     "endOffset": 39,
     "startOffset": 34,
+    "tagIdx": 3,
     "text": "fence",
   },
 ]
@@ -88,24 +96,28 @@ Array [
     "confidence": 0.1,
     "endOffset": 3,
     "startOffset": 0,
+    "tagIdx": 0,
     "text": "the",
   },
   Object {
     "confidence": 0.2,
     "endOffset": 7,
     "startOffset": 4,
+    "tagIdx": 1,
     "text": "big",
   },
   Object {
     "confidence": 0.3,
     "endOffset": 29,
     "startOffset": 25,
+    "tagIdx": 2,
     "text": "over",
   },
   Object {
     "confidence": 0.4,
     "endOffset": 39,
     "startOffset": 34,
+    "tagIdx": 3,
     "text": "fence",
   },
 ]

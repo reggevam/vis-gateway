@@ -4,11 +4,16 @@ it extracts the offsets of each element
 should come before construct highlight array
 */
 module.exports = (content, tags, field) => {
-  return tags.reduce((acc, tag) => {
+  return tags.reduce((acc, tag, ii) => {
     const startOffset = content.indexOf(tag[field]);
     return [
       ...acc,
-      { ...tag, startOffset, endOffset: startOffset + tag[field].length },
+      {
+        ...tag,
+        startOffset,
+        endOffset: startOffset + tag[field].length,
+        tagIdx: ii,
+      },
     ];
   }, []);
 };
