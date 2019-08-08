@@ -1,6 +1,9 @@
 FROM node:12.7.0-alpine
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY package.json ./
 RUN npm install
 COPY . .
-CMD ["npm", "start"]
+COPY .env.production .env
+ENV NODE_ENV=production
+
+CMD ["npm", "run", "production"]
