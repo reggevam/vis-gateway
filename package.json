@@ -32,6 +32,7 @@
   },
   "scripts": {
     "start": "node ./scripts/start.js",
+    "production": "NODE_ENV=production node ./bootstrap",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:no-watch": "jest",
