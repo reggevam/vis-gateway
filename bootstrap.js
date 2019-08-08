@@ -1,14 +1,8 @@
-const dotenv = require('dotenv');
-
-if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: './.env.production' });
-  console.info('running in production');
-} else {
-  dotenv.config();
-  console.info('running in development');
-}
+require('dotenv').config();
 
 const { server } = require('./src');
+
+console.log(process.env.NER_URL);
 
 server.listen().then(({ url }) => {
   console.info(`🚀 listening on ${url}`);

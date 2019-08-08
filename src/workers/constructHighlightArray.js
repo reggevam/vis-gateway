@@ -1,5 +1,5 @@
 const { isMainThread, workerData, parentPort } = require('worker_threads');
-const constructHighlightArray = require('construct-highlight-array');
+const constructHighlightArray = require('./../utils/construct-highlight-array');
 
 if (isMainThread) {
   module.exports = __filename;

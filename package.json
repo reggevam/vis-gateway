@@ -7,7 +7,6 @@
     "apollo-datasource": "^0.4.0",
     "apollo-datasource-rest": "^0.4.0",
     "apollo-server": "^2.5.0",
-    "construct-highlight-array": "git+https://github.com/reggevam/construct-highlight-array.git",
     "dotenv": "^8.0.0",
     "graphql": "^14.3.0",
     "lodash": "^4.17.11",
@@ -33,6 +32,7 @@
   "scripts": {
     "start": "node ./scripts/start.js",
     "production": "NODE_ENV=production node ./bootstrap",
+    "build": "docker build -t visualizer/gateway:1.0.0 .",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:no-watch": "jest",
