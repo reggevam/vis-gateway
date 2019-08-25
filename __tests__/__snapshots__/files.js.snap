@@ -24,11 +24,6 @@ On the morning of Sunday 01/01/1970, I was dispatched to 1600 Pennsylvania Avenu
     "mimetype": "mock mimetype",
     "summary": Array [
       Object {
-        "isEntity": false,
-        "tagIdx": null,
-        "text": "",
-      },
-      Object {
         "isEntity": true,
         "tagIdx": 0,
         "text": "The following is a statement of Patrolman Mark Coral",
@@ -53,11 +48,6 @@ On the morning of Sunday 01/01/1970, ",
         "isEntity": true,
         "tagIdx": 2,
         "text": "I was dispatched to 1600 Pennsylvania Avenue Northwest",
-      },
-      Object {
-        "isEntity": false,
-        "tagIdx": null,
-        "text": "",
       },
     ],
   },

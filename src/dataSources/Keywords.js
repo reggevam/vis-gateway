@@ -20,17 +20,20 @@ class KeywordsApi extends RESTDataSource {
     if (cached) return cached;
 
     const response = await this.post('/phrase', { text: content, ...settings });
-    const offsetArray = await findAndTag(content, response);
-    const highlighArray = setupHighlightArray(content, offsetArray);
+    const offsetArray = await findAndTag(content, response, 'text');
+    const highlighArray = await setupHighlightArray(content, offsetArray);
+    const filteredHighlightArray = highlighArray.filter(
+      item => item.text.length > 1
+    );
 
     this.context.dataSources.cache.save(
       this.constructor.name,
       fileId,
       Object.entries(settings),
-      highlighArray
+      filteredHighlightArray
     );
 
-    return highlighArray;
+    return filteredHighlightArray;
   }
 }
 
