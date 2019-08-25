@@ -14,18 +14,22 @@ class SummarizationApi extends RESTDataSource {
   async fetchSummary(fileId, content, settings) {
     const cached = this.context.dataSources.cache.load(
       this.constructor.name,
-      fileId
+      fileId,
+      Object.entries(settings)
     );
     if (cached) return cached;
+
     const response = await this.post('sum', { text: content, ...settings });
+    const offsetArray = await findAndTag(content, response);
+    const highlighArray = await setupHighlightArray(content, offsetArray);
+
     this.context.dataSources.cache.save(
       this.constructor.name,
       fileId,
-      settings,
-      response
+      Object.entries(settings),
+      highlighArray
     );
-    const offsetArray = await findAndTag(content, response);
-    return setupHighlightArray(content, offsetArray);
+    return highlighArray;
   }
 }
 

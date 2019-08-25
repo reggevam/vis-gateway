@@ -1,6 +1,7 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+const { findAndTag, setupHighlightArray } = require('./../workers');
 
-class Keywords extends RESTDataSource {
+class KeywordsApi extends RESTDataSource {
   constructor() {
     super();
     if (!process.env.KEYWORDS_URL) {
@@ -13,18 +14,24 @@ class Keywords extends RESTDataSource {
   async fetchKeywords(fileId, content, settings) {
     const cached = this.context.dataSources.cache.load(
       this.constructor.name,
-      fileId
+      fileId,
+      Object.entries(settings)
     );
     if (cached) return cached;
+
     const response = await this.post('/phrase', { text: content, ...settings });
+    const offsetArray = await findAndTag(content, response);
+    const highlighArray = setupHighlightArray(content, offsetArray);
+
     this.context.dataSources.cache.save(
       this.constructor.name,
       fileId,
-      settings,
-      response
+      Object.entries(settings),
+      highlighArray
     );
-    return response;
+
+    return highlighArray;
   }
 }
 
-module.exports = Keywords;
+module.exports = KeywordsApi;

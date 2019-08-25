@@ -32,7 +32,8 @@ type Entity {
 
 type Keyword {
   text: String!
-  confidence: Float!
+  confidence: Float
+  isEntity: Boolean!
 }
 
 type SummaryTag {
