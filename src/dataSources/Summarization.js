@@ -19,20 +19,19 @@ class SummarizationApi extends RESTDataSource {
     );
     if (cached) return cached;
 
-    const response = await this.post('sum', { text: content, ...settings });
-    const filteredHighlightArray = await structureArrayFromContent(
-      content,
-      response
-    ).then(highlightArray =>
-      highlightArray.filter(item => item.text.length > 1)
-    );
+    const response = await this.post('sum', { text: content, ...settings })
+      .then(summary => structureArrayFromContent(content, summary))
+      .then(highlightArray =>
+        highlightArray.filter(item => item.text.length > 1)
+      );
+
     this.context.dataSources.cache.save(
       this.constructor.name,
       fileId,
       Object.entries(settings),
-      filteredHighlightArray
+      response
     );
-    return filteredHighlightArray;
+    return response;
   }
 }
 

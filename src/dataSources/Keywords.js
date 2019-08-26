@@ -19,23 +19,23 @@ class KeywordsApi extends RESTDataSource {
     );
     if (cached) return cached;
 
-    const keywords = await this.post('/phrase', { text: content, ...settings });
-    const filteredHighlightArray = await structureArrayFromContent(
-      content,
-      keywords,
-      'text'
-    ).then(highlightArray =>
-      highlightArray.filter(item => item.text.length > 1)
-    );
+    const response = await this.post('/phrase', {
+      text: content,
+      ...settings,
+    })
+      .then(keywords => structureArrayFromContent(content, keywords, 'text'))
+      .then(highlightArray =>
+        highlightArray.filter(item => item.text.length > 1)
+      );
 
     this.context.dataSources.cache.save(
       this.constructor.name,
       fileId,
       Object.entries(settings),
-      filteredHighlightArray
+      response
     );
 
-    return filteredHighlightArray;
+    return response;
   }
 }
 
