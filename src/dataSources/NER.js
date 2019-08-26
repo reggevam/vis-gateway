@@ -1,10 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 const { setupHighlightArray } = require('../workers');
 
-const engineNameCorrection = {
-  'neural-flair': 'neural_flair',
-};
-
 class NERApi extends RESTDataSource {
   constructor() {
     super();
