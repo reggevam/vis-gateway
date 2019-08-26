@@ -1,5 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
-const { findAndTag, setupHighlightArray } = require('./../workers');
+const { structureArrayFromContent } = require('./utils');
 
 class KeywordsApi extends RESTDataSource {
   constructor() {
@@ -19,11 +19,13 @@ class KeywordsApi extends RESTDataSource {
     );
     if (cached) return cached;
 
-    const response = await this.post('/phrase', { text: content, ...settings });
-    const offsetArray = await findAndTag(content, response, 'text');
-    const highlighArray = await setupHighlightArray(content, offsetArray);
-    const filteredHighlightArray = highlighArray.filter(
-      item => item.text.length > 1
+    const keywords = await this.post('/phrase', { text: content, ...settings });
+    const filteredHighlightArray = await structureArrayFromContent(
+      content,
+      keywords,
+      'text'
+    ).then(highlightArray =>
+      highlightArray.filter(item => item.text.length > 1)
     );
 
     this.context.dataSources.cache.save(

@@ -1,5 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
-const { findAndTag, setupHighlightArray } = require('./../workers');
+const { structureArrayFromContent } = require('./utils');
 
 class SummarizationApi extends RESTDataSource {
   constructor() {
@@ -20,12 +20,12 @@ class SummarizationApi extends RESTDataSource {
     if (cached) return cached;
 
     const response = await this.post('sum', { text: content, ...settings });
-    const offsetArray = await findAndTag(content, response);
-    const highlighArray = await setupHighlightArray(content, offsetArray);
-    const filteredHighlightArray = highlighArray.filter(
-      item => item.text.length > 1
+    const filteredHighlightArray = await structureArrayFromContent(
+      content,
+      response
+    ).then(highlightArray =>
+      highlightArray.filter(item => item.text.length > 1)
     );
-
     this.context.dataSources.cache.save(
       this.constructor.name,
       fileId,
