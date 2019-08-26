@@ -33,10 +33,7 @@ class NERApi extends RESTDataSource {
       sortedSettings,
       response
     );
-    return response.map(item => ({
-      ...item,
-      engine: engineNameCorrection[item.engine] || item.engine,
-    }));
+    return response;
   }
 }
 
