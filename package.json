@@ -32,7 +32,8 @@
   "scripts": {
     "start": "node ./scripts/start.js",
     "production": "NODE_ENV=production node ./bootstrap",
-    "build": "docker build -t visualizer/gateway:1.0.0 .",
+    "build": "./dockerize.sh",
+    "docker": "./dockerize.sh -r",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:no-watch": "jest",
