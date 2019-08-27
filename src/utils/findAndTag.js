@@ -6,7 +6,15 @@ should come before construct highlight array
 
 module.exports = (content, tags, field) => {
   return tags.reduce((acc, tag, ii) => {
-    const startOffset = content.indexOf(field ? tag[field] : tag);
+    const startOffset = content.search(
+      /* 
+      some algorithms tend to lower-case all the keywords,
+      names will not be found in a case sensitive search
+      */
+      new RegExp(field ? tag[field] : tag, 'i')
+    );
+
+    if (startOffset === -1) return acc; // a safety fallback for missing keywords
     return field
       ? [
           ...acc,
