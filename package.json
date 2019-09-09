@@ -32,13 +32,13 @@
   "scripts": {
     "start": "node ./scripts/start.js",
     "production": "NODE_ENV=production node ./bootstrap",
-    "build": "./dockerize.sh",
-    "docker": "./dockerize.sh -r",
+    "build": "./scripts/dockerize.sh",
+    "docker": "./scripts/dockerize.sh -r",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:no-watch": "jest",
     "env": "sync-dotenv",
-    "services": "./services.sh"
+    "services": "./scripts/services.sh"
   },
   "husky": {
     "pre-commit": "npn run test:no-watch",
