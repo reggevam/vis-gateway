@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors client error 1`] = `
+Object {
+  "extensions": Object {
+    "code": "CLIENT_ERROR",
+  },
+  "locations": Array [
+    Object {
+      "column": 3,
+      "line": 2,
+    },
+  ],
+  "message": "something has gone wrong in the client",
+  "path": Array [
+    "errorReport",
+  ],
+}
+`;
+
+exports[`errors known error 1`] = `
+Object {
+  "extensions": Object {
+    "code": "FILE_NOT_FOUND",
+  },
+  "locations": Array [
+    Object {
+      "column": 3,
+      "line": 2,
+    },
+  ],
+  "message": "could not find fileId nope...",
+  "path": Array [
+    "file",
+  ],
+}
+`;
+
+exports[`errors un-known error 1`] = `
+Object {
+  "extensions": Object {
+    "code": "GRAPHQL_VALIDATION_FAILED",
+  },
+  "locations": Array [
+    Object {
+      "column": 3,
+      "line": 2,
+    },
+  ],
+  "message": "Cannot query field \\"throwError\\" on type \\"Mutation\\".",
+  "path": undefined,
+}
+`;

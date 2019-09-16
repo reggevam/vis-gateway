@@ -5,16 +5,16 @@ const stripErrorStackTrace = err => {
   const { code } = extensions;
   return {
     ...rest,
-    extensions: {
-      code,
-    },
+    extensions: { code },
   };
 };
 
 module.exports = err => {
   // the error tracker will track the errors from stdOut
-  console.error(err);
-  return err.originalError instanceof ApolloError
-    ? stripErrorStackTrace(err)
-    : new ApolloError('UNKNOWN_ERROR', 'UNKNOWN_ERROR');
+  console.error(stripErrorStackTrace(err));
+
+  if (err.originalError instanceof ApolloError) {
+    return stripErrorStackTrace(err);
+  }
+  return new ApolloError('UNKNOWN_ERROR', 'UNKNOWN_ERROR');
 };
