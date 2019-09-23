@@ -4,10 +4,9 @@ const { constructTestServer } = require('../__testUtils');
 require('dotenv').config();
 
 jest.mock('./../src/dataSources/NER.js');
-jest.mock('./../src/dataSources/FilesManager.js');
 jest.mock('./../src/dataSources/TikaServer.js');
-// jest.mock('./../src/dataSources/cachedState.js');
 jest.mock('./../src/dataSources/Summarization.js');
+jest.mock('./../src/dataSources/FilesManager.js');
 
 const uploadFileMutation = gql`
   mutation uploadFile($file: Upload!) {

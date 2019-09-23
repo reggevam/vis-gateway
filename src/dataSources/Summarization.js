@@ -1,5 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 const { structureArrayFromContent } = require('./utils');
+const objectHash = require('object-hash');
 
 class SummarizationApi extends RESTDataSource {
   constructor() {
@@ -11,26 +12,24 @@ class SummarizationApi extends RESTDataSource {
     this.fetchSummary = this.fetchSummary.bind(this);
   }
 
-  async fetchSummary(fileId, content, settings) {
-    const cached = this.context.dataSources.cache.load(
-      this.constructor.name,
-      fileId,
-      Object.entries(settings)
+  cacheKeyFor(request) {
+    const body = JSON.parse(request.body.toString());
+    return objectHash(
+      {
+        url: request.url,
+        body,
+      },
+      { unorderedArrays: true, unorderedSets: true, unorderedObjects: true }
     );
-    if (cached) return cached;
+    return request.url;
+  }
 
+  async fetchSummary(fileId, content, settings) {
     const response = await this.post('sum', { text: content, ...settings })
       .then(summary => structureArrayFromContent(content, summary))
       .then(highlightArray =>
         highlightArray.filter(item => item.text.length > 1)
       );
-
-    this.context.dataSources.cache.save(
-      this.constructor.name,
-      fileId,
-      Object.entries(settings),
-      response
-    );
     return response;
   }
 }

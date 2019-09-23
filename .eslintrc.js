@@ -22,5 +22,6 @@ module.exports = {
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
+    'class-methods-use-this': 'allow',
   },
 };

@@ -1,5 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 const { setupHighlightArray } = require('../workers');
+const objectHash = require('object-hash');
 
 class NERApi extends RESTDataSource {
   constructor() {
@@ -11,24 +12,24 @@ class NERApi extends RESTDataSource {
     this.fetchEntities = this.fetchEntities.bind(this);
   }
 
+  cacheKeyFor(request) {
+    const body = JSON.parse(request.body.toString());
+    return objectHash(
+      {
+        url: request.url,
+        body,
+      },
+      { unorderedArrays: true, unorderedSets: true, unorderedObjects: true }
+    );
+    return request.url;
+  }
+
   async fetchEntities(fileId, content, settings = {}) {
     const sortedSettings = settings.engines
       ? { ...settings, engines: settings.engines.slice().sort() }
       : settings;
-    const cached = this.context.dataSources.cache.load(
-      this.constructor.name,
-      fileId,
-      sortedSettings
-    );
-    if (cached) return cached;
     const data = await this.post('ner', { content, ...sortedSettings });
     const response = await setupHighlightArray(content, data);
-    this.context.dataSources.cache.save(
-      this.constructor.name,
-      fileId,
-      sortedSettings,
-      response
-    );
     return response;
   }
 }

@@ -1,11 +1,20 @@
-const { files: cachedState } = require('./../cachedState');
+const { files: cachedState } = require('./../../../fixtures/files.cachedState');
 
 const FileDataSource = require.requireActual('./../FilesManager.js');
 
 class Files extends FileDataSource {
   constructor() {
     super();
-    this.state = process.env.INITIAL_FILE_CACHE === 'EMPTY' ? {} : cachedState;
+  }
+  initialize() {
+    this.cache = {
+      get: fileId => {
+        return cachedState[fileId];
+      },
+      set: (fileId, value) => {
+        cachedState[fileId] = value;
+      },
+    };
   }
 }
 

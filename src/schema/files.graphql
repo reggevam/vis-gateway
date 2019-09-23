@@ -43,15 +43,15 @@ type SummaryTag {
   tagIdx: Int
 }
 
-type File {
+type File @cacheControl(maxAge: 6000) {
   filename: String!
   mimetype: String!
   encoding: String!
   id: ID!
   content: String!
-  entities(engines: [engineTypes!]): [Entity!]!
-  keywords(ratio: Float, words: Int): [Keyword!]!
-  summary(ratio: Float): [SummaryTag!]!
+  entities(engines: [engineTypes!]): [Entity!]! @cacheControl(maxAge: 6000)
+  keywords(ratio: Float, words: Int): [Keyword!]! @cacheControl(maxAge: 6000)
+  summary(ratio: Float): [SummaryTag!]! @cacheControl(maxAge: 6000)
   tags: [Tag!]!
 }
 
